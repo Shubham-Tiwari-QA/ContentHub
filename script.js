@@ -20,6 +20,32 @@
   window.updateContent = item => { saveContents(getContents().map(existing => existing.id === item.id ? item : existing)); return item; };
   window.deleteContent = id => saveContents(getContents().filter(item => item.id !== id));
 
+  const WEB_STORIES_KEY = 'contenthub_web_stories';
+  const defaultWebStories = [
+    { id: 'ws-ai-trends', title: '5 AI Trends You Should Know', category: 'Technology', author: 'Rahul Sharma', description: 'A quick visual tour of the ideas shaping the next wave of artificial intelligence.', status: 'Published', featured: true, coverImage: '', icon: '🤖', createdDate: 'Sep 16, 2026', slides: [
+      { image: '', title: 'AI is becoming more useful', description: 'The most exciting tools are moving from novelty into everyday workflows.', duration: 5 }, { image: '', title: 'Small teams, bigger reach', description: 'Creators and businesses can now turn good ideas into polished work faster.', duration: 5 }, { image: '', title: 'Human judgment still matters', description: 'The best results come from pairing machine speed with human context.', duration: 5 }
+    ] },
+    { id: 'ws-productivity', title: 'Easy Productivity Tips', category: 'Business', author: 'Ankit Jain', description: 'Three simple resets for calmer, more focused workdays.', status: 'Published', featured: true, coverImage: '', icon: '⚡', createdDate: 'Sep 15, 2026', slides: [
+      { image: '', title: 'Choose one priority', description: 'Start the day by naming the one outcome that matters most.', duration: 5 }, { image: '', title: 'Make focus visible', description: 'Put your phone away and give your attention a clear home.', duration: 5 }, { image: '', title: 'Close the loop', description: 'End with a short review so tomorrow starts with less friction.', duration: 5 }
+    ] },
+    { id: 'ws-travel', title: 'Top Travel Destinations', category: 'Travel', author: 'Neha Patel', description: 'Places that reward curiosity, patience, and a slower itinerary.', status: 'Published', featured: false, coverImage: '', icon: '✈️', createdDate: 'Sep 14, 2026', slides: [
+      { image: '', title: 'Kyoto in the morning', description: 'Quiet lanes, early light, and a city with deep layers.', duration: 5 }, { image: '', title: 'The coast road', description: 'Take the scenic route and leave room for unplanned stops.', duration: 5 }, { image: '', title: 'Travel lightly', description: 'The best souvenirs are usually the stories you bring home.', duration: 5 }
+    ] },
+    { id: 'ws-morning', title: 'Healthy Morning Routine', category: 'Health', author: 'Priya Singh', description: 'A gentle start can change the shape of an entire day.', status: 'Published', featured: false, coverImage: '', icon: '🌱', createdDate: 'Sep 13, 2026', slides: [
+      { image: '', title: 'Begin with water', description: 'Give your body a simple first signal that the day has begun.', duration: 5 }, { image: '', title: 'Move for ten minutes', description: 'A little movement is enough to wake up your attention.', duration: 5 }, { image: '', title: 'Set an intention', description: 'Decide how you want to feel, not only what you want to finish.', duration: 5 }
+    ] },
+    { id: 'ws-tech-updates', title: 'Latest Technology Updates', category: 'Technology', author: 'Vikas Kumar', description: 'The shifts worth watching across the modern web.', status: 'Published', featured: false, coverImage: '', icon: '🌐', createdDate: 'Sep 12, 2026', slides: [
+      { image: '', title: 'The web gets lighter', description: 'Performance and accessibility are becoming product priorities.', duration: 5 }, { image: '', title: 'Design systems mature', description: 'Reusable decisions help teams create with more consistency.', duration: 5 }, { image: '', title: 'Build for trust', description: 'Clear interfaces make complicated technology feel approachable.', duration: 5 }
+    ] }
+  ];
+  const readWebStories = () => { try { const stored = localStorage.getItem(WEB_STORIES_KEY); return stored === null ? defaultWebStories : JSON.parse(stored); } catch { return defaultWebStories; } };
+  window.getWebStories = () => readWebStories();
+  window.saveWebStories = stories => localStorage.setItem(WEB_STORIES_KEY, JSON.stringify(stories));
+  window.getWebStoryById = id => getWebStories().find(story => String(story.id) === String(id));
+  window.addWebStory = story => { const stories = getWebStories(); stories.unshift(story); saveWebStories(stories); return story; };
+  window.updateWebStory = story => { saveWebStories(getWebStories().map(existing => String(existing.id) === String(story.id) ? story : existing)); return story; };
+  window.deleteWebStory = id => saveWebStories(getWebStories().filter(story => String(story.id) !== String(id)));
+
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const imageMarkup = (item, className) => item.image ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" class="${className}">` : `<span>${escapeHtml(item.icon || '✦')}</span>`;
   const published = () => getContents().filter(item => item.status === 'Published');
