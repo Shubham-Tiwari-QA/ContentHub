@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ContentHub - Discover & Share</title>
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #172033;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .logo span {
+            color: #635bff;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #635bff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-btn {
+            border: 0;
+            background: #f1f5f9;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .create-btn,
+        .primary-btn {
+            border: 0;
+            background: #635bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .create-btn:hover,
+        .primary-btn:hover {
+            background: #5148e5;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background: linear-gradient(135deg, #f3f1ff, #ffffff);
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .label {
+            color: #635bff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+            margin-top: 15px;
+            font-size: 55px;
+            line-height: 1.08;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: #635bff;
+        }
+
+        .hero-text p {
+            margin-top: 22px;
+            max-width: 570px;
+            color: #64748b;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .secondary-btn {
+            border: 1px solid #d8dce5;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+        }
+
+        .featured-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            background: #e9e7ff;
+        }
+
+        .featured-content {
+            padding: 25px;
+        }
+
+        .featured-content > span {
+            color: #635bff;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .featured-content h2 {
+            margin-top: 10px;
+            font-size: 22px;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            margin-top: 10px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .author {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #635bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .author small {
+            display: block;
+            margin-top: 3px;
+            color: #94a3b8;
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+            padding: 75px 0;
+        }
+
+        .latest-section {
+            background: white;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            margin-bottom: 35px;
+        }
+
+        .section-header h2 {
+            margin-top: 7px;
+            font-size: 32px;
+        }
+
+        .section-header p {
+            color: #64748b;
+        }
+
+
+        /* =========================
+           CATEGORIES
+        ========================= */
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .category-card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: #635bff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .category-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .category-card h3 {
+            font-size: 18px;
+        }
+
+        .category-card p {
+            color: #94a3b8;
+            margin-top: 6px;
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .content-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.25s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .content-image {
+            height: 180px;
+            background: #eeeefe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+        }
+
+        .content-info {
+            padding: 20px;
+        }
+
+        .content-info > span {
+            color: #635bff;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .content-info h3 {
+            margin-top: 9px;
+            font-size: 19px;
+            line-height: 1.35;
+        }
+
+        .content-info p {
+            margin-top: 10px;
+            color: #64748b;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .view-all {
+            background: none;
+            border: 0;
+            color: #635bff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           TRENDING
+        ========================= */
+
+        .trending-section {
+            background: #f5f6ff;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .trending-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .trending-card strong {
+            font-size: 32px;
+            color: #d5d2ff;
+        }
+
+        .trending-card h3 {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .trending-card p {
+            margin-top: 7px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           SEARCH MODAL
+        ========================= */
+
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 120px;
+            z-index: 2000;
+        }
+
+        .search-overlay.show {
+            display: flex;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 650px;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .search-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #dbe0e8;
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .close-search {
+            position: absolute;
+            right: 20px;
+            top: 18px;
+            border: 0;
+            background: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .search-result {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+
+        /* =========================
+           CREATE CONTENT MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 3000;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal-box h2 {
+            font-size: 26px;
+        }
+
+        .modal-subtitle {
+            margin: 8px 0 25px;
+            color: #64748b;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 18px;
+            border: 0;
+            background: #f1f5f9;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .modal-box label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .modal-box input,
+        .modal-box select,
+        .modal-box textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dbe0e8;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .modal-box textarea {
+            resize: vertical;
+        }
+
+        .full-btn {
+            width: 100%;
+            margin-top: 22px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            background: #111827;
+            color: white;
+            padding-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 50px;
+        }
+
+        .footer .logo {
+            color: white;
+        }
+
+        .footer p {
+            color: #9ca3af;
+            max-width: 350px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .footer h4 {
+            margin-bottom: 18px;
+        }
+
+        .footer a {
+            display: block;
+            text-decoration: none;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            width: 36px;
+            height: 36px;
+            background: #1f2937;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #273244;
+            padding: 20px 0;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trending-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .create-btn {
+                padding: 10px 12px;
+            }
+
+            .hero {
+                padding: 55px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .category-grid,
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="container navbar">
+
+        <div class="logo">
+            Content<span>Hub</span>
+        </div>
+
+        <nav>
+
+            <a href="#" class="active">
+                Home
+            </a>
+
+            <a href="#latest">
+                Latest
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+            <a href="#trending">
+                Trending
+            </a>
+
+        </nav>
+
+        <div class="nav-actions">
+
+            <button
+                class="search-btn"
+                data-testid="search"
+                onclick="openSearch()">
+                🔍
+            </button>
+
+            <button
+                class="create-btn"
+                data-testid="create-content"
+                onclick="openCreateContent()">
+                + Create
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div
+    id="searchBox"
+    class="search-overlay">
+
+    <div class="search-container">
+
+        <button
+            class="close-search"
+            onclick="closeSearch()">
+            ✕
+        </button>
+
+        <h2>
+            Search Content
+        </h2>
+
+        <input
+            type="text"
+            id="searchInput"
+            data-testid="search"
+            placeholder="Search articles, topics..."
+            onkeyup="searchContent()"
+        >
+
+        <div id="searchResults"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="container hero-content">
+
+
+        <div class="hero-text">
+
+            <span class="label">
+                WELCOME TO CONTENTHUB
+            </span>
+
+            <h1>
+
+                Discover Ideas.
+                <br>
+
+                <span>
+                    Share Your Story.
+                </span>
+
+            </h1>
+
+            <p>
+
+                Discover useful articles, inspiring stories,
+                tutorials and ideas from creators around the world.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button
+                    class="primary-btn"
+                    onclick="scrollToLatest()">
+
+                    Explore Content →
+
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    onclick="openCreateContent()">
+
+                    Start Writing
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="featured-card">
+
+            <div class="featured-image">
+                📝
+            </div>
+
+            <div class="featured-content">
+
+                <span>
+                    FEATURED STORY
+                </span>
+
+                <h2>
+                    How Technology Is Changing The Way We Learn
+                </h2>
+
+                <p>
+                    Explore how modern technology is transforming
+                    education and content creation.
+                </p>
+
+
+                <div class="author">
+
+                    <div class="avatar">
+                        A
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Admin
+                        </strong>
+
+                        <small>
+                            Sep 16, 2026 · 5 min read
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<section
+    id="categories"
+    class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="label">
+                    EXPLORE
+                </span>
+
+                <h2>
+                    Browse Categories
+                </h2>
+
+            </div>
+
+            <p>
+                Find content based on your interests.
+            </p>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Technology')">
+
+                <div class="category-icon">
+                    💻
+                </div>
+
+                <h3>
+                    Technology
+                </h3>
+
+                <p>
+                    120 Articles
+                </p>
+
+            </div>
+
+
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Education')">
+
+                <div class="category-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Education
+                </h3>
+
+                <p>
+                    85 Articles
+                </p>
+
+            </div>
+
+
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Business')">
+
+                <div class="category-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Business
+                </h3>
+
+                <p>
+                    64 Articles
+                </p>
+
+            </div>
+
+
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Lifestyle')">
+
+                <div class="category-icon">
+                    🌱
+                </div>
+
+                <h3>
+                    Lifestyle
+                </h3>
+
+                <p>
+                    92 Articles
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     LATEST CONTENT
+========================= -->
+
+<section
+    id="latest"
+    class="section latest-section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="label">
+                    DISCOVER
+                </span>
+
+                <h2>
+                    Latest Content
+                </h2>
+
+            </div>
+
+
+            <button
+                class="view-all"
+                onclick="showAllContent()">
+
+                View All →
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="contentGrid"
+            class="content-grid"
+            data-testid="content-card">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     TRENDING
+========================= -->
+
+<section
+    id="trending"
+    class="section trending-section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="label">
+                    POPULAR
+                </span>
+
+                <h2>
+                    Trending Now
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="trendingGrid"
+            class="trending-grid">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CREATE CONTENT MODAL
+========================= -->
+
+<div
+    id="createModal"
+    class="modal hidden">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeCreateContent()">
+
+            ✕
+
+        </button>
+
+
+        <h2>
+            Create Content
+        </h2>
+
+        <p class="modal-subtitle">
+            Share your ideas with the community.
+        </p>
+
+
+        <form id="contentForm">
+
+
+            <label>
+                Content Title
+            </label>
+
+            <input
+                type="text"
+                id="contentTitle"
+                placeholder="Enter content title"
+                required
+            >
+
+
+            <label>
+                Category
+            </label>
+
+            <select
+                id="contentCategory"
+                required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option>
+                    Technology
+                </option>
+
+                <option>
+                    Education
+                </option>
+
+                <option>
+                    Business
+                </option>
+
+                <option>
+                    Lifestyle
+                </option>
+
+            </select>
+
+
+            <label>
+                Cover Image URL
+            </label>
+
+            <input
+                type="text"
+                id="contentImage"
+                placeholder="Enter image URL"
+            >
+
+
+            <label>
+                Content
+            </label>
+
+            <textarea
+                id="contentDescription"
+                rows="6"
+                placeholder="Write your content..."
+                required>
+            </textarea>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn">
+
+                Publish Content
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+
+        <div>
+
+            <div class="logo">
+                Content<span>Hub</span>
+            </div>
+
+            <p>
+                Discover, create and share meaningful
+                content with the world.
+            </p>
+
+
+            <div class="socials">
+
+                <a href="#">
+                    𝕏
+                </a>
+
+                <a href="#">
+                    in
+                </a>
+
+                <a href="#">
+                    ◎
+                </a>
+
+                <a href="#">
+                    ▶
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <div>
+
+            <h4>
+                Explore
+            </h4>
+
+            <a href="#latest">
+                Latest Content
+            </a>
+
+            <a href="#trending">
+                Trending
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+        </div>
+
+
+
+        <div>
+
+            <h4>
+                Categories
+            </h4>
+
+            <a href="#">
+                Technology
+            </a>
+
+            <a href="#">
+                Education
+            </a>
+
+            <a href="#">
+                Business
+            </a>
+
+            <a href="#">
+                Lifestyle
+            </a>
+
+        </div>
+
+
+
+        <div>
+
+            <h4>
+                Company
+            </h4>
+
+            <a href="#">
+                About Us
+            </a>
+
+            <a href="#">
+                Contact
+            </a>
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+            <a href="#">
+                Terms
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 ContentHub. All rights reserved.
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    /* =========================
+       CONTENT DATA
+    ========================= */
+
+    let contents = [
+
+        {
+            id: 1,
+            title: "The Future of Artificial Intelligence",
+            category: "Technology",
+            description:
+                "Explore how artificial intelligence is changing businesses, education and everyday life.",
+            icon: "🤖",
+            author: "Rahul Sharma",
+            date: "Sep 16, 2026",
+            readTime: "6 min read"
+        },
+
+        {
+            id: 2,
+            title: "How to Build Better Learning Habits",
+            category: "Education",
+            description:
+                "Simple and practical techniques to improve focus, learning and productivity.",
+            icon: "📚",
+            author: "Priya Singh",
+            date: "Sep 15, 2026",
+            readTime: "4 min read"
+        },
+
+        {
+            id: 3,
+            title: "Starting Your First Online Business",
+            category: "Business",
+            description:
+                "Important things you should know before starting your first online business.",
+            icon: "💼",
+            author: "Amit Verma",
+            date: "Sep 14, 2026",
+            readTime: "7 min read"
+        },
+
+        {
+            id: 4,
+            title: "Simple Ways to Improve Your Lifestyle",
+            category: "Lifestyle",
+            description:
+                "Small daily changes that can help you create a healthier and more productive lifestyle.",
+            icon: "🌱",
+            author: "Neha Patel",
+            date: "Sep 13, 2026",
+            readTime: "5 min read"
+        },
+
+        {
+            id: 5,
+            title: "Modern Web Development Guide",
+            category: "Technology",
+            description:
+                "Learn the fundamentals of building modern and responsive websites.",
+            icon: "🌐",
+            author: "Vikas Kumar",
+            date: "Sep 12, 2026",
+            readTime: "8 min read"
+        },
+
+        {
+            id: 6,
+            title: "Productivity Tips for Professionals",
+            category: "Business",
+            description:
+                "Useful productivity techniques for managing your work and time effectively.",
+            icon: "⚡",
+            author: "Ankit Jain",
+            date: "Sep 11, 2026",
+            readTime: "5 min read"
+        }
+
+    ];
+
+
+    /* =========================
+       DISPLAY CONTENT
+    ========================= */
+
+    function displayContent(data = contents) {
+
+        const grid =
+            document.getElementById("contentGrid");
+
+        grid.innerHTML = "";
+
+
+        if (data.length === 0) {
+
+            grid.innerHTML = `
+                <p style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    color:#64748b;
+                ">
+                    No content found.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        data.forEach(item => {
+
+            grid.innerHTML += `
+
+                <article class="content-card">
+
+                    <div class="content-image">
+                        ${item.icon}
+                    </div>
+
+                    <div class="content-info">
+
+                        <span>
+                            ${item.category}
+                        </span>
+
+                        <h3>
+                            ${item.title}
+                        </h3>
+
+                        <p>
+                            ${item.description}
+                        </p>
+
+                        <div class="content-meta">
+
+                            <span>
+                                ${item.author}
+                            </span>
+
+                            <span>
+                                ${item.readTime}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        });
+
+    }
+
+
+    /* =========================
+       TRENDING
+    ========================= */
+
+    function displayTrending() {
+
+        const grid =
+            document.getElementById("trendingGrid");
+
+        grid.innerHTML = "";
+
+
+        contents.slice(0, 3).forEach((item, index) => {
+
+            grid.innerHTML += `
+
+                <div class="trending-card">
+
+                    <strong>
+                        0${index + 1}
+                    </strong>
+
+                    <div>
+
+                        <h3>
+                            ${item.title}
+                        </h3>
+
+                        <p>
+                            ${item.category}
+                            ·
+                            ${item.readTime}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    /* =========================
+       CATEGORY FILTER
+    ========================= */
+
+    function filterCategory(category) {
+
+        const filtered =
+            contents.filter(
+                item => item.category === category
+            );
+
+
+        displayContent(filtered);
+
+
+        document
+            .getElementById("latest")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* =========================
+       SHOW ALL
+    ========================= */
+
+    function showAllContent() {
+
+        displayContent(contents);
+
+        document
+            .getElementById("latest")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    function openSearch() {
+
+        document
+            .getElementById("searchBox")
+            .classList.add("show");
+
+        document
+            .getElementById("searchInput")
+            .focus();
+
+    }
+
+
+    function closeSearch() {
+
+        document
+            .getElementById("searchBox")
+            .classList.remove("show");
+
+    }
+
+
+    function searchContent() {
+
+        const keyword =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const resultBox =
+            document.getElementById("searchResults");
+
+
+        resultBox.innerHTML = "";
+
+
+        if (!keyword) {
+            return;
+        }
+
+
+        const results =
+            contents.filter(item =>
+
+                item.title
+                    .toLowerCase()
+                    .includes(keyword)
+
+                ||
+
+                item.category
+                    .toLowerCase()
+                    .includes(keyword)
+
+                ||
+
+                item.description
+                    .toLowerCase()
+                    .includes(keyword)
+
+            );
+
+
+        if (results.length === 0) {
+
+            resultBox.innerHTML = `
+                <p style="
+                    padding:20px 0;
+                    color:#64748b;
+                ">
+                    No content found.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        results.forEach(item => {
+
+            resultBox.innerHTML += `
+
+                <div class="search-result">
+
+                    <strong>
+                        ${item.title}
+                    </strong>
+
+                    <p style="
+                        color:#64748b;
+                        margin-top:5px;
+                    ">
+                        ${item.category}
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    /* =========================
+       CREATE CONTENT
+    ========================= */
+
+    function openCreateContent() {
+
+        document
+            .getElementById("createModal")
+            .classList.remove("hidden");
+
+    }
+
+
+    function closeCreateContent() {
+
+        document
+            .getElementById("createModal")
+            .classList.add("hidden");
+
+    }
+
+
+    /* =========================
+       PUBLISH CONTENT
+    ========================= */
+
+    document
+        .getElementById("contentForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const title =
+                document
+                    .getElementById("contentTitle")
+                    .value
+                    .trim();
+
+
+            const category =
+                document
+                    .getElementById("contentCategory")
+                    .value;
+
+
+            const description =
+                document
+                    .getElementById("contentDescription")
+                    .value
+                    .trim();
+
+
+            if (!title || !category || !description) {
+
+                alert(
+                    "Please fill all required fields."
+                );
+
+                return;
+
+            }
+
+
+            const newContent = {
+
+                id: Date.now(),
+
+                title: title,
+
+                category: category,
+
+                description: description,
+
+                icon: "📝",
+
+                author: "You",
+
+                date: new Date()
+                    .toLocaleDateString(
+                        "en-US",
+                        {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric"
+                        }
+                    ),
+
+                readTime: "3 min read"
+
+            };
+
+
+            contents.unshift(newContent);
+
+
+            displayContent(contents);
+
+            displayTrending();
+
+
+            this.reset();
+
+            closeCreateContent();
+
+
+            alert(
+                "Content published successfully!"
+            );
+
+        });
+
+
+    /* =========================
+       SCROLL
+    ========================= */
+
+    function scrollToLatest() {
+
+        document
+            .getElementById("latest")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* =========================
+       INITIAL LOAD
+    ========================= */
+
+    displayContent();
+
+    displayTrending();
+
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>
