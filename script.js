@@ -12,6 +12,7 @@
   ];
   const read = (key, fallback) => { try { const value = JSON.parse(localStorage.getItem(key)); return Array.isArray(value) && value.length ? value : fallback; } catch { return fallback; } };
   window.getContents = () => read(CONTENT_KEY, defaults);
+  window.getContentById = id => getContents().find(item => String(item.id) === String(id));
   window.saveContents = items => localStorage.setItem(CONTENT_KEY, JSON.stringify(items));
   window.getCategories = () => read(CATEGORY_KEY, defaultCategories);
   window.saveCategories = items => localStorage.setItem(CATEGORY_KEY, JSON.stringify(items));

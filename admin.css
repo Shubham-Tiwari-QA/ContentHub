@@ -10,7 +10,9 @@ button { cursor:pointer; }
 .side-label { padding:0 12px; color:#95a4b8; font:700 11px/1.2 Arial,sans-serif; letter-spacing:1.4px; text-transform:uppercase; }
 .side-nav { display:grid; gap:5px; margin-top:12px; }
 .side-nav button, .back-link { width:100%; border:0; border-radius:8px; padding:12px; text-align:left; color:#cbd5e1; background:transparent; }
+.side-nav a { width:100%; border-radius:8px; padding:12px; color:#cbd5e1; background:transparent; text-decoration:none; }
 .side-nav button:hover, .side-nav button.active { color:#fff; background:#244052; }
+.side-nav a:hover { color:#fff; background:#244052; }
 .back-link { display:block; margin-top:30px; text-decoration:none; color:#9fded7; }
 .main { min-width:0; }
 .topbar { height:74px; padding:0 32px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); background:rgba(255,255,255,.94); }
